@@ -7,9 +7,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use JetBrains\PhpStorm\Internal\TentativeType;
 
 #[ORM\Entity(repositoryClass: DriversRepository::class)]
-class Drivers
+class Drivers implements  \JsonSerializable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -197,4 +198,10 @@ class Drivers
     }
 
 
+    public function jsonSerialize(): array
+    {
+        return [
+            'id' => $this->id
+        ];
+    }
 }
