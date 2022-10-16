@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
-use App\Form\RouteType;
-use App\Repository\RouteRepository;
+use App\Entity\Vehicles;
+use App\Form\VehiclesType;
+use App\Repository\VehiclesRepository;
+
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -11,23 +13,23 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/api')]
-class RouteController extends AbstractController
+class VehiclesController extends AbstractController
 {
-    #[Route('/route', name: 'app_route')]
-    public function index(RouteRepository $routeRepository): JsonResponse
+    #[Route('/vehicles', name: 'app_vehicles')]
+    public function index(VehiclesRepository $vehiclesRepository): JsonResponse
     {
         return new JsonResponse(
-            ['driver' => $routeRepository->findAll(),
+            ['driver' => $vehiclesRepository->findAll(),
             ], JsonResponse::HTTP_CREATED
         );
     }
 
-    #[Route('/new_route', name: 'new_route', methods: 'POST')]
+    #[Route('/new_vehicles', name: 'new_vehicles', methods: 'POST')]
     public function new(Request $request, ManagerRegistry $doctrine,)
     {
 
         $data = json_decode($request->getContent(), true);
-        $form = $this->createForm(RouteType::class, new \App\Entity\Route());
+        $form = $this->createForm(VehiclesType::class, new Vehicles());
         $form->submit($data);
 
         $em = $doctrine->getManager();
@@ -41,32 +43,34 @@ class RouteController extends AbstractController
         );
     }
 
-    #[Route('/route/{id}', name: 'id_route', methods: 'GET')]
-    public function view($id, RouteRepository $routeRepository)
+    #[Route('/vehicles/{id}', name: 'id_vehicles', methods: 'GET')]
+    public function view($id, VehiclesRepository $vehiclesRepository)
     {
-        $drive = $routeRepository->find($id);
+        $vehicle = $vehiclesRepository->find($id);
 
-        if (!isset($drive)) {
+        if (isset($vehicle)) {
+            return new JsonResponse(
+                ['vehicle' => $vehicle,
+                ], JsonResponse::HTTP_CREATED
+            );
+        } else {
             return new JsonResponse(
                 ['status' => 'error',
                 ], JsonResponse::HTTP_BAD_REQUEST
             );
         }
 
-        return new JsonResponse(
-            ['driver' => $drive,
-            ], JsonResponse::HTTP_CREATED
-        );
+
     }
 
-    #[Route('/edit_route/{id}/', name: 'edit_route', methods: 'POST')]
-    public function edit(Request $request, $id, ManagerRegistry $doctrine, RouteRepository $routeRepository)
+    #[Route('/edit_vehicle/{id}/', name: 'edit_vehicle', methods: 'POST')]
+    public function edit(Request $request, $id, ManagerRegistry $doctrine, VehiclesRepository $vehiclesRepository)
     {
 
-        $route = $routeRepository->find($id);
+        $vehicle = $vehiclesRepository->find($id);
 
         $data = json_decode($request->getContent(), true);
-        $form = $this->createForm(RouteType::class, $route);
+        $form = $this->createForm(VehiclesType::class, $vehicle);
         $form->submit($data);
 
         $em = $doctrine->getManager();
@@ -80,14 +84,14 @@ class RouteController extends AbstractController
         );
     }
 
-    #[Route('/delete_route/{id}/', name: 'delete_route', methods: 'DELETE')]
-    public function delete($id, ManagerRegistry $doctrine, RouteRepository $routeRepository)
+    #[Route('/delete_vehicle/{id}/', name: 'delete_vehicle', methods: 'DELETE')]
+    public function delete($id, ManagerRegistry $doctrine, VehiclesRepository $vehiclesRepository)
     {
 
-        $route = $routeRepository->find($id);
+        $vehicle = $vehiclesRepository->find($id);
 
         $em = $doctrine->getManager();
-        $em->remove($route);
+        $em->remove($vehicle);
         $em->flush();
 
         return new JsonResponse(
