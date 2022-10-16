@@ -47,6 +47,10 @@ security:
           - { path: ^/api/edit_driver, roles: ROLE_USER }
           - { path: ^/api/id_driver, roles: ROLE_USER }
           - { path: ^/api/delete_driver, roles: ROLE_USER }
+          - { path: ^/route, roles: ROLE_USER }
+          - { path: ^/new_route, roles: ROLE_USER }
+          - { path: ^/edit_route, roles: ROLE_USER }
+          - { path: ^/delete_route, roles: ROLE_USER }
 
 
 when@test:
