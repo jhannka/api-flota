@@ -55,6 +55,10 @@ security:
           - { path: ^/api/new_vehicles, roles: ROLE_USER }
           - { path: ^/api/edit_vehicle, roles: ROLE_USER }
           - { path: ^/api/delete_vehicle, roles: ROLE_USER }
+          - { path: ^/api/schedules, roles: ROLE_USER }
+          - { path: ^/api/new_schedules, roles: ROLE_USER }
+          - { path: ^/api/edit_schedules, roles: ROLE_USER }
+          - { path: ^/api/delete_schedules, roles: ROLE_USER }
 
 
 when@test:
