@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-
+#[Route('/api')]
 class DriverController extends AbstractController
 {
 
@@ -18,7 +18,6 @@ class DriverController extends AbstractController
     #[Route('/driver', name: 'app_driver')]
     public function index(ManagerRegistry $doctrine, RespuestaJson $resjson)
     {
-
         $drivers = $doctrine->getRepository(Drivers::class)->findAll();
 
         return $resjson->resjson($drivers);

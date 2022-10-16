@@ -12,21 +12,13 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Validation;
 
+#[Route('/api')]
 class UserController extends AbstractController
 {
-    #[Route('/user', name: 'app_user')]
-    public function index(): JsonResponse
-    {
-        return $this->json([
-            'message' => 'Welcome to your new controller!',
-            'path' => 'src/Controller/UserController.php',
-        ]);
-    }
 
     #[Route('/user-register', name: 'user-register', methods: 'POST')]
     public function register(Request $request, RespuestaJson $resjson, ManagerRegistry $doctrine)
     {
-
         $json = $request->get('json', null);
         $params = json_decode($json);
 
@@ -35,7 +27,6 @@ class UserController extends AbstractController
             'code' => 200,
             'message' => 'El usuario no se ha creado',
             'json' => $json
-
         ];
 
         if ($json != null) {
@@ -72,21 +63,18 @@ class UserController extends AbstractController
                     $data = [
                         'status' => 'succes',
                         'code' => 200,
-                        'message' => 'El usuario no se ha creado',
+                        'message' => 'El usuario se ha creado',
                         'json' => $user
 
                     ];
-
                 } else {
                     $data = [
                         'status' => 'error',
                         'code' => 400,
                         'message' => 'El usuario ya existe',
                         'json' => $json
-
                     ];
                 }
-
             }
         }
         return $resjson->resjson($data);

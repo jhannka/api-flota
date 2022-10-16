@@ -11,6 +11,7 @@
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.13",
         "firebase/php-jwt": "^6.3",
+        "lexik/jwt-authentication-bundle": "^2.16",
         "symfony/apache-pack": "^1.0",
         "symfony/asset": "6.1.*",
         "symfony/console": "6.1.*",
@@ -61,7 +62,8 @@
     "scripts": {
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
-            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+            "assets:install %PUBLIC_DIR%": "symfony-cmd",
+            "lexik:jwt:generate-keypair": "symfony-cmd"
         },
         "post-install-cmd": [
             "@auto-scripts"
