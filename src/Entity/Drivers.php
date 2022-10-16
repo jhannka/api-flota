@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use JetBrains\PhpStorm\Internal\TentativeType;
 
 #[ORM\Entity(repositoryClass: DriversRepository::class)]
-class Drivers implements  \JsonSerializable
+class Drivers implements \JsonSerializable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -51,7 +51,6 @@ class Drivers implements  \JsonSerializable
     {
         $this->routes = new ArrayCollection();
     }
-
 
 
     public function getId(): ?int
@@ -201,7 +200,15 @@ class Drivers implements  \JsonSerializable
     public function jsonSerialize(): array
     {
         return [
-            'id' => $this->id
+            'id' => $this->id,
+            'last_name' => $this->last_name,
+            'firts_name' => $this->firts_name,
+            'ssd' => $this->ssd,
+            'address' => $this->address,
+            'city' => $this->city,
+            'zip' => $this->zip,
+            'phone' => $this->phone,
+            'active' => $this->active
         ];
     }
 }

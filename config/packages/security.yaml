@@ -43,6 +43,10 @@ security:
           - { path: ^/api/login, roles: PUBLIC_ACCESS }
           - { path: ^/api/driver, roles: ROLE_USER }
           - { path: ^/api/user-register, roles: ROLE_USER }
+          - { path: ^/api/new_driver, roles: ROLE_USER }
+          - { path: ^/api/edit_driver, roles: ROLE_USER }
+          - { path: ^/api/id_driver, roles: ROLE_USER }
+          - { path: ^/api/delete_driver, roles: ROLE_USER }
 
 
 when@test:
