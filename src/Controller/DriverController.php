@@ -59,7 +59,7 @@ class DriverController extends AbstractController
 
         return new JsonResponse(
             [
-                'status' => 'ok'
+                'status' => 'success'
             ], JsonResponse::HTTP_CREATED
         );
     }

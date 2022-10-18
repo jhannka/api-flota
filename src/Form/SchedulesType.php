@@ -16,7 +16,6 @@ class SchedulesType extends AbstractType
             ->add('fromm')
             ->add('too')
             ->add('active')
-            ->add('route')
         ;
     }
 

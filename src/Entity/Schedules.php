@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\SchedulesRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: SchedulesRepository::class)]
 class Schedules
@@ -20,11 +21,15 @@ class Schedules
     #[ORM\Column]
     private ?int $week_num = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $fromm = null;
 
+    #[Assert\DateTime]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $too = null;
+    private ?\DateTime $fromm = null;
+
+
+    #[Assert\DateTime]
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTime $too = null;
 
     #[ORM\Column]
     private ?bool $active = null;
@@ -58,24 +63,27 @@ class Schedules
         return $this;
     }
 
-    public function getFromm(): ?\DateTimeInterface
+    public function getFromm(): ?\DateTime
     {
         return $this->fromm;
     }
 
-    public function setFromm(\DateTimeInterface $fromm): self
+
+    public function setFromm(?string $fromm): self
     {
         $this->fromm = $fromm;
 
         return $this;
     }
 
-    public function getToo(): ?\DateTimeInterface
+    public function getToo(): ?\DateTime
     {
         return $this->too;
     }
 
-    public function setToo(\DateTimeInterface $too): self
+
+
+    public function setToo(?string $too): self
     {
         $this->too = $too;
 
