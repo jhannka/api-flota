@@ -12,6 +12,7 @@
         "doctrine/orm": "^2.13",
         "firebase/php-jwt": "^6.3",
         "lexik/jwt-authentication-bundle": "^2.16",
+        "nelmio/cors-bundle": "^2.2",
         "symfony/apache-pack": "^1.0",
         "symfony/asset": "6.1.*",
         "symfony/console": "6.1.*",

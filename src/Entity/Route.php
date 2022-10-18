@@ -7,9 +7,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use JetBrains\PhpStorm\Internal\TentativeType;
 
 #[ORM\Entity(repositoryClass: RouteRepository::class)]
-class Route
+class Route implements \JsonSerializable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -37,8 +38,7 @@ class Route
 
     public function __construct()
     {
-        $this->driver = new ArrayCollection();
-        $this->vehicle = new ArrayCollection();
+
         $this->schedules = new ArrayCollection();
     }
 
@@ -126,5 +126,15 @@ class Route
     }
 
 
+    public function jsonSerialize(): mixed
+    {
+        return [
+            'id' => $this->id,
+            'description' => $this->description,
+            'driver' => $this->driver,
+            'vehicle' => $this->vehicle,
+            'active' => $this->active
 
+        ];
+    }
 }

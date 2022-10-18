@@ -44,7 +44,7 @@ class Drivers implements \JsonSerializable
     #[ORM\Column]
     private ?bool $active = null;
 
-    #[ORM\OneToMany(mappedBy: 'driver', targetEntity: Route::class)]
+    #[ORM\OneToMany(mappedBy: 'driver', targetEntity: Route::class, orphanRemoval: true)]
     private Collection $routes;
 
     public function __construct()

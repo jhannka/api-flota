@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route('/api')]
 class SchedulesController extends AbstractController
 {
     #[Route('/schedules', name: 'app_schedules')]
@@ -25,11 +26,12 @@ class SchedulesController extends AbstractController
     #[Route('/new_schedules', name: 'new_schedules', methods: 'POST')]
     public function new(Request $request, ManagerRegistry $doctrine,)
     {
-
+        $schedules = new Schedules();
         $data = json_decode($request->getContent(), true);
-        $form = $this->createForm(SchedulesType::class, new Schedules());
+        $form = $this->createForm(SchedulesType::class, $schedules);
         $form->submit($data);
 
+        $schedules->setFromm(new \DateTime())->setToo(new \DateTime());
         $em = $doctrine->getManager();
         $em->persist($form->getData());
         $em->flush();
